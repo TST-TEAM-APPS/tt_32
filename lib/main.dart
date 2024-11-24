@@ -8,14 +8,10 @@ void main() {
   WidgetsFlutterBinding.ensureInitialized();
   final app = App();
   final eventRepository = EventRepository();
-  // final transactionRepository = TransactionRepository();
   runApp(
     MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => TrekerBloc(eventRepository)),
-        // BlocProvider(
-        //   create: (context) => TransactionBloc(transactionRepository),
-        // ),
       ],
       child: app,
     ),

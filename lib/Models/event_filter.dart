@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pp_731/BLOC/Bloc_treker/bloc_treker.dart';
 import 'package:pp_731/BLOC/Bloc_treker/event_treker.dart';
-import 'package:pp_731/BLOC/Bloc_treker/state_treker.dart';
-import 'package:pp_731/Models/event_model.dart';
 import 'package:pp_731/Repo/event_repo.dart';
 
 class FilterModel extends StatefulWidget {
@@ -30,6 +28,7 @@ class _FilterModelState extends State<FilterModel> {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
+      shrinkWrap: true,
         scrollDirection: Axis.horizontal,
         itemCount: filters.length,
         itemBuilder: (context, index) {
@@ -38,11 +37,14 @@ class _FilterModelState extends State<FilterModel> {
             child: GestureDetector(
               onTap: () {
                 setState(() {
-                  selectedIndex = index; // Update the selected index
+                  if (selectedIndex == index) {
+                    selectedIndex = -1;
+                    context.read<TrekerBloc>().add(LoadEvent());
+                  } else {
+                    selectedIndex = index;
+                    context.read<TrekerBloc>().add(FilledByTagEvent(filters[index]));
+                  }
                 });
-                context
-                    .read<TrekerBloc>()
-                    .add(FilledByTagEvent(filters[index]));
               },
               child: Container(
                 width: 101,

@@ -32,6 +32,8 @@ class _EventWidgetModelState extends State<EventWidgetModel> {
             return Center(child: Text('No tasks available.'));
           }
           return ListView.builder(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
             scrollDirection: Axis.vertical,
             itemCount: widget.filteredEvents.length,
             itemBuilder: (context, index) {
@@ -100,11 +102,13 @@ class _EventWidgetModelState extends State<EventWidgetModel> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Text(
-                                        event.title,
-                                        maxLines: 2,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: Style.textStyle,
+                                      Expanded(
+                                        child: Text(
+                                          event.title,
+                                          maxLines: 2, 
+                                          overflow: TextOverflow.ellipsis,
+                                          style: Style.textStyle,
+                                        ),
                                       ),
                                       CupertinoButton(
                                         child: SvgPicture.asset(

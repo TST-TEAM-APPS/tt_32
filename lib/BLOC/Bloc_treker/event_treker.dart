@@ -28,6 +28,13 @@ class FilledByTagEvent extends TrekerEvent {
 
   FilledByTagEvent(this.tag);
 }
+class FilledByDateAndTagEvent extends TrekerEvent {
+  final String tag;
+  final DateTime date;
+
+
+  FilledByDateAndTagEvent(this.tag, this.date);
+}
 
 class SearchEvent extends TrekerEvent {
   final String text;

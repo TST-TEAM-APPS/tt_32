@@ -36,6 +36,7 @@ class _ChangeBodiesState extends State<ChangeBodies>
     return Scaffold(
       extendBody: true,
       body: TabBarView(
+        physics: NeverScrollableScrollPhysics(),
         controller: _controller,
         children: [
           HomeScreen(),

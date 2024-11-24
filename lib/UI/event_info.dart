@@ -43,8 +43,9 @@ class _InfoEventState extends State<InfoEvent> {
         leading: CupertinoButton(
           padding: EdgeInsets.all(6),
           onPressed: () {
-            Navigator.of(context).pop()
-;          },
+            Navigator.of(context).pop();
+            ;
+          },
           child: Container(
             width: 40,
             height: 40,
@@ -66,21 +67,19 @@ class _InfoEventState extends State<InfoEvent> {
           CupertinoButton(
             padding: EdgeInsets.all(6),
             onPressed: () {
-    Navigator.of(context)
-        .push(MaterialPageRoute(
-    builder: (context) => EditEvent(
-            event: widget.event,
-            title: widget.event.title,
-            location: widget.event.location,
-            date:widget.event.dueDate,
-            startTime: widget.event.startTime,
-            endTime: widget.event.endTime,
-            tag: widget.event.tag,
-            description: widget.event.description,
-            ),
-            ));
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => EditEvent(
+                  event: widget.event,
+                  title: widget.event.title,
+                  location: widget.event.location,
+                  date: widget.event.dueDate,
+                  startTime: widget.event.startTime,
+                  endTime: widget.event.endTime,
+                  tag: widget.event.tag,
+                  description: widget.event.description,
+                ),
+              ));
             },
-
             child: Container(
               width: 40,
               height: 40,
@@ -111,40 +110,49 @@ class _InfoEventState extends State<InfoEvent> {
                     color: Colors.black),
               ),
             ),
-            widget.location.isNotEmpty ?
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 5),
-              child: Text(
-                'Location',
-                style: Style.textStyle.copyWith(
-                    fontWeight: FontWeight.w400,
-                    fontSize: 14,
-                    color: Color.fromRGBO(52, 52, 52, 1)),
-              ),
-            ):
-                SizedBox(
-                  height: 10,
-                ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 5),
-              child: Row(
-                children: [
-                  SvgPicture.asset('Assets/Icons/Primary.svg'),
-                  SizedBox(
-                    width: 10,
+            widget.location.isNotEmpty
+                ? Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 5),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Location',
+                              style: Style.textStyle.copyWith(
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 14,
+                                  color: Color.fromRGBO(52, 52, 52, 1)),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 5),
+                        child: Row(
+                          children: [
+                            SvgPicture.asset('Assets/Icons/Primary.svg'),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Text(
+                              widget.location,
+                              style: Style.textStyle.copyWith(
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 14,
+                                  color: Color.fromRGBO(52, 52, 52, 1)),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  )
+                : SizedBox(
+                    height: 0,
                   ),
-                  Text(
-                    widget.location,
-                    style: Style.textStyle.copyWith(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 14,
-                        color: Color.fromRGBO(52, 52, 52, 1)),
-                  ),
-                ],
-              ),
-            ),
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10.0),
+              padding: const EdgeInsets.symmetric(vertical: 5.0),
               child: Text(
                 'Date',
                 style: Style.textStyle.copyWith(
@@ -153,72 +161,82 @@ class _InfoEventState extends State<InfoEvent> {
                     color: Color.fromRGBO(52, 52, 52, 1)),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 5.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      SvgPicture.asset('Assets/Icons/calendar-2.svg'),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Text(
-                        "${widget.startTime}-${widget.endTime}, ${DateFormat('dd MMM yyyy').format(widget.date)}",
-                        style: Style.textStyle.copyWith(
-                            fontWeight: FontWeight.w400,
-                            fontSize: 14,
-                            color: Color.fromRGBO(52, 52, 52, 1)),
-                      ),
-                    ],
-                  ),
-                  Container(
-                    // width: 64,
-                    height: 26,
-                    padding: EdgeInsets.all(5),
-                    margin: EdgeInsets.all(5),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: Color.fromRGBO(240, 134, 122, 1),
-                    ),
-                    child: Center(
-                      child: Text(
-                        widget.tag,
-                        style: Style.textStyle.copyWith(
-                          color: Colors.white,
-                          fontSize: 12,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            widget.description.isNotEmpty?
-            Column(
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8.0),
-                  child: Text('About Event',
-                      style: Style.textStyle.copyWith(fontWeight: FontWeight.bold)),
+                Row(
+                  children: [
+                    SvgPicture.asset('Assets/Icons/calendar-2.svg'),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Text(
+                      "${widget.startTime}-${widget.endTime}, ${DateFormat('dd MMM yyyy').format(widget.date)}",
+                      style: Style.textStyle.copyWith(
+                          fontWeight: FontWeight.w400,
+                          fontSize: 14,
+                          color: Color.fromRGBO(52, 52, 52, 1)),
+                    ),
+                  ],
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8.0),
-                  child: Text(
-                    widget.description,
-                    maxLines: 10,
-                    overflow: TextOverflow.ellipsis,
-                    style: Style.textStyle.copyWith(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 14,
-                      color: Color.fromRGBO(52, 52, 52, 1),
+                Container(
+                  // width: 64,
+                  height: 26,
+                  padding: EdgeInsets.all(5),
+                  margin: EdgeInsets.all(5),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: Color.fromRGBO(240, 134, 122, 1),
+                  ),
+                  child: Center(
+                    child: Text(
+                      widget.tag,
+                      style: Style.textStyle.copyWith(
+                        color: Colors.white,
+                        fontSize: 12,
+                      ),
                     ),
                   ),
-                )
+                ),
               ],
-            ) : SizedBox(),
-
+            ),
+            widget.description.isNotEmpty
+                ? Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 8.0),
+                            child: Text('About Event',
+                                style: Style.textStyle
+                                    .copyWith(fontWeight: FontWeight.bold)),
+                          ),
+                        ],
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Expanded(
+                              child: Text(
+                                widget.description,
+                                maxLines: 10,
+                                overflow: TextOverflow.ellipsis,
+                                style: Style.textStyle.copyWith(
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 14,
+                                  color: Color.fromRGBO(52, 52, 52, 1),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
+                  )
+                : SizedBox(),
           ],
         ),
       ),

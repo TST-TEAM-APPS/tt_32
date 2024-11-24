@@ -11,26 +11,14 @@ class TrekerBloc extends Bloc<TrekerEvent, TrekerState> {
   TrekerBloc(this.eventRepository) : super(TrekerState.initial()) {
     on<LoadEvent>(_onLoadEvent);
     on<AddEvent>(_onAddEvent);
-    // on<SearchEvent>(_searchEvent);
     on<UpdateEvent>(_onUpdateEvent);
     on<DeleteEvent>(_onDeleteEvent);
     on<FilledEvent>(_onFillEventByDate);
+    on<FilledByDateAndTagEvent>(_onFillEventByDateAndTag);
     on<FilledByTagEvent>(_onFillEventByTag);
     add(LoadEvent());
   }
 
-  // Future<void> _searchEvent(SearchEvent event, Emitter<TrekerState> emit) async {
-  //   final query = event.text.toLowerCase();
-  //   final searchEvents = state.event.where((event) {
-  //     return event.title.toLowerCase().contains(query);
-  //   }).toList();
-  //   emit(
-  //     state.copyWith(
-  //       currentEvent: searchEvents,
-  //     ),
-  //   );
-  //
-  // }
 
   Future<void> _onFillEventByDate(FilledEvent event,
       Emitter<TrekerState> emit) async {
@@ -54,6 +42,34 @@ class TrekerBloc extends Bloc<TrekerEvent, TrekerState> {
           events.dueDate.day == date.day;
     }).toList();
   }
+
+  Future<void> _onFillEventByDateAndTag(FilledByDateAndTagEvent event,
+      Emitter<TrekerState> emit) async {
+    final currentEventsByDateAndTag =
+    _filterEventsByDateAndTag(date: event.date, eventsByDateAndTag: state.event,tag: event.tag);
+    emit(
+      state.copyWith(
+        currentEventByDate: currentEventsByDateAndTag,
+        currentDateTime: event.date,
+        currentTag: event.tag
+      ),
+    );
+  }
+
+  List<Event> _filterEventsByDateAndTag({
+    required DateTime date,
+    required List<Event> eventsByDateAndTag,
+    required String tag,
+  }) {
+    return eventsByDateAndTag.where((eventsByDateAndTag) {
+      return eventsByDateAndTag.dueDate.year == date.year &&
+          eventsByDateAndTag.dueDate.month == date.month &&
+          eventsByDateAndTag.dueDate.day == date.day &&
+          eventsByDateAndTag.tag == tag;
+    }).toList();
+  }
+
+
 
   Future<void> _onFillEventByTag(FilledByTagEvent event,
       Emitter<TrekerState> emit) async {
@@ -139,6 +155,7 @@ class TrekerBloc extends Bloc<TrekerEvent, TrekerState> {
       await eventRepository.updateEvent(event.event);
       final events = await eventRepository.getEvents();
       emit(state.copyWith(event: events));
+      add(LoadEvent());
     } catch (e) {
       emit(state.copyWith(error: e.toString()));
     }

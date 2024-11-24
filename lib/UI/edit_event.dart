@@ -53,8 +53,8 @@ class _EditEventState extends State<EditEvent> {
 
   @override
   void initState() {
-
-    _dateController = TextEditingController(text: DateFormat('yyyy-mm-dd').format(widget.date));
+    _dateController = TextEditingController(
+        text: DateFormat('yyyy-MM-dd').format(widget.date));
     _titleController = TextEditingController(text: widget.title);
     _descriptionController = TextEditingController(text: widget.description);
     _startTimeController = TextEditingController(text: widget.startTime);
@@ -77,7 +77,7 @@ class _EditEventState extends State<EditEvent> {
       appBar: AppBar(
         backgroundColor: Style.bgColor,
         title: Text(
-          'Create Event',
+          'Edit Event',
           style: Style.textStyle,
         ),
         actions: [
@@ -124,6 +124,7 @@ class _EditEventState extends State<EditEvent> {
               ),
               TextField(
                 controller: _titleController,
+                maxLines: null,
                 decoration: InputDecoration(
                   fillColor: Color.fromRGBO(241, 242, 246, 1),
                   border: OutlineInputBorder(
@@ -434,7 +435,9 @@ class _EditEventState extends State<EditEvent> {
                             description: _descriptionController.text.isNotEmpty
                                 ? _descriptionController.text
                                 : widget.description,
-                            dueDate: _dateController.text.isNotEmpty?  dueDate : widget.date,
+                            dueDate: _dateController.text.isNotEmpty
+                                ? dueDate
+                                : widget.date,
                             startTime: _startTimeController.text.isNotEmpty
                                 ? _startTimeController.text
                                 : widget.startTime,
@@ -450,12 +453,13 @@ class _EditEventState extends State<EditEvent> {
                           ),
                         ),
                       );
-                  print('sad');
-                  Navigator.of(context).pushReplacement(
+                  Navigator.of(context).pushAndRemoveUntil(
                     MaterialPageRoute(
                       builder: (context) => ChangeBodies(),
                     ),
+                        (Route<dynamic> route) => false,
                   );
+
                 },
                 child: Container(
                   width: 225,
@@ -466,7 +470,7 @@ class _EditEventState extends State<EditEvent> {
                   ),
                   child: Center(
                     child: Text(
-                      'Create Task',
+                      'Save',
                       style: Style.textStyle.copyWith(
                         color: Colors.white,
                       ),
@@ -510,33 +514,124 @@ class _EditEventState extends State<EditEvent> {
   }
 
   Future<void> _selectStartTime(BuildContext context) async {
-    final TimeOfDay? picked = await showTimePicker(
-      initialEntryMode: TimePickerEntryMode.inputOnly,
+    final TimeOfDay? picked = await showCupertinoModalPopup<TimeOfDay>(
       context: context,
-      initialTime: selectedStartTime,
+      builder: (BuildContext context) {
+        TimeOfDay selectedTime = selectedStartTime;
+
+        return Padding(
+          padding: const EdgeInsets.all(15.0),
+          child: Center(
+            child: Container(
+              height: 250,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(15),
+              ),
+              child: CupertinoTimerPicker(
+                initialTimerDuration: Duration(
+                  hours: selectedTime.hour,
+                  minutes: selectedTime.minute,
+                ),
+                onTimerDurationChanged: (Duration newDuration) {
+                  selectedTime = TimeOfDay(
+                    hour: newDuration.inHours,
+                    minute: newDuration.inMinutes.remainder(60),
+                  );
+                },
+                mode: CupertinoTimerPickerMode.hm,
+              ),
+            ),
+          ),
+        );
+      },
     );
 
-    if (picked != null && picked != selectedStartTime) {
+    if (picked != null) {
       setState(() {
         selectedStartTime = picked;
         _startTimeController.text =
-            '${picked.hour.toString().padLeft(2, '0')}:${picked.minute.toString().padLeft(2, '0')}';
+        '${picked.hour.toString().padLeft(2, '0')}:${picked.minute.toString().padLeft(2, '0')}';
+      });
+    } else {
+      setState(() {
+        _startTimeController.text =
+        '${selectedStartTime.hour.toString().padLeft(2, '0')}:${selectedStartTime.minute.toString().padLeft(2, '0')}';
       });
     }
   }
 
+
+
   Future<void> _selectEndTime(BuildContext context) async {
-    final TimeOfDay? picked = await showTimePicker(
-      initialEntryMode: TimePickerEntryMode.inputOnly,
+    final TimeOfDay? picked = await showCupertinoModalPopup<TimeOfDay>(
       context: context,
-      initialTime: selectedEndTime,
+      builder: (BuildContext context) {
+        TimeOfDay selectedTime = selectedEndTime;
+
+        return Padding(
+          padding: const EdgeInsets.all(15.0),
+          child: Center(
+            child: Container(
+              height: 250,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(15),
+              ),
+              child: CupertinoTimerPicker(
+                initialTimerDuration: Duration(
+                  hours: selectedTime.hour,
+                  minutes: selectedTime.minute,
+                ),
+                onTimerDurationChanged: (Duration newDuration) {
+                  selectedTime = TimeOfDay(
+                    hour: newDuration.inHours,
+                    minute: newDuration.inMinutes.remainder(60),
+                  );
+                },
+                mode: CupertinoTimerPickerMode.hm,
+              ),
+            ),
+          ),
+        );
+      },
     );
 
-    if (picked != null && picked != selectedEndTime) {
+    if (picked != null) {
+      final DateTime selectedStartDateTime = DateTime(0, 1, 1, selectedStartTime.hour, selectedStartTime.minute);
+      final DateTime selectedEndDateTime = DateTime(0, 1, 1, picked.hour, picked.minute);
+
+      if (selectedEndDateTime.isBefore(selectedStartDateTime)) {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text('Invalid Time'),
+              content: Text('End time cannot be earlier than or equal to start time.'),
+              actions: <Widget>[
+                TextButton(
+                  child: Text('OK'),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            );
+          },
+        );
+      } else {
+        setState(() {
+          selectedEndTime = picked;
+          _endTimeController.text =
+          '${picked.hour.toString().padLeft(2, '0')}:${picked.minute.toString().padLeft(2, '0')}';
+        });
+      }
+    } else {
       setState(() {
-        selectedEndTime = picked;
         _endTimeController.text =
-            '${picked.hour.toString().padLeft(2, '0')}:${picked.minute.toString().padLeft(2, '0')}';
+        '${selectedEndTime.hour.toString().padLeft(2, '0')}:${selectedEndTime.minute.toString().padLeft(2, '0')}';
       });
     }
   }

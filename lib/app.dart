@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'UI/all_eevents.dart';
 import 'UI/onboaring.dart';
 import 'Widgets/bottom_navigation_bar.dart';
 import 'Widgets/is_first.dart';
@@ -22,6 +23,7 @@ class App extends StatelessWidget {
           }
         },
       ),
+      // home: AllEvents(),
     );
   }
 }

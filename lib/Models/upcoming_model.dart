@@ -32,6 +32,7 @@ class _UpcomingModelState extends State<UpcomingModel> {
             return Center(child: Text('No tasks available.'));
           }
           return ListView.builder(
+            shrinkWrap: true,
             scrollDirection: Axis.horizontal,
             itemCount: widget.filteredEvents.length,
             itemBuilder: (context, index) {
@@ -79,7 +80,8 @@ class _UpcomingModelState extends State<UpcomingModel> {
                               child: Container(
                                 // width: 59,
                                 height: 26,
-                                margin: EdgeInsets.all(3),
+                                // margin: EdgeInsets.all(5),
+                                padding: EdgeInsets.all(5),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(20),
                                   color: Colors.white,
@@ -103,10 +105,14 @@ class _UpcomingModelState extends State<UpcomingModel> {
                       right: 0,
                       top: 0,
                       child: CupertinoButton(
-                        child: SvgPicture.asset('Assets/Icons/more.svg',color: Colors.white,width: 20,height: 20,),
+                        child: SvgPicture.asset(
+                          'Assets/Icons/more.svg',
+                          color: Colors.white,
+                          width: 20,
+                          height: 20,
+                        ),
                         onPressed: () {
-                          Navigator.of(context)
-                              .push(MaterialPageRoute(
+                          Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) => InfoEvent(
                               event: event,
                               title: event.title,

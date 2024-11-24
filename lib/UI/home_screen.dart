@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pp_731/BLOC/Bloc_treker/bloc_treker.dart';
 import 'package:pp_731/BLOC/Bloc_treker/state_treker.dart';
 import 'package:pp_731/Models/upcoming_model.dart';
+import 'package:pp_731/UI/all_eevents.dart';
 import 'package:pp_731/style.dart';
 import '../BLOC/Bloc_treker/event_treker.dart';
 import '../Models/event_filter.dart';
@@ -22,11 +23,8 @@ class HomeScreen extends StatelessWidget {
           padding: const EdgeInsets.symmetric(
             horizontal: 15,
           ),
-          child: Column(
+          child: ListView(
             children: [
-              SizedBox(
-                height: 60,
-              ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 15.0),
                 child: Row(
@@ -150,7 +148,10 @@ class HomeScreen extends StatelessWidget {
                     ),
                   ),
                   CupertinoButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => AllEvents()));
+                    },
                     padding: EdgeInsets.zero,
                     child: Row(
                       children: [
@@ -178,17 +179,20 @@ class HomeScreen extends StatelessWidget {
                   child: FilterModel(),
                 ),
               ),
+              SizedBox(
+                height: 20,
+              ),
               state.currentEventByTag.isEmpty
                   ? Expanded(
-                    child: Container(
-                        child:
-                            Center(child: Image.asset('Assets/Icons/events.png'))),
-                  )
+                      child: Container(
+                          child: Center(
+                              child: Image.asset('Assets/Icons/events.png'))),
+                    )
                   : Expanded(
-                    child: EventWidgetModel(
-                      filteredEvents: state.currentEventByTag,
+                      child: EventWidgetModel(
+                        filteredEvents: state.currentEventByTag,
+                      ),
                     ),
-                  ),
             ],
           ),
         );
