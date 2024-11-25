@@ -70,19 +70,21 @@ class HomeScreen extends StatelessWidget {
                   ),
                   dayProps: const EasyDayProps(
                     inactiveDayStyle: DayStyle(
-                        borderRadius: 15.0,
-                        dayStrStyle: TextStyle(
-                          color: Color.fromRGBO(240, 134, 122, 1),
-                        )),
+                      borderRadius: 15.0,
+                      dayStrStyle: TextStyle(
+                        color: Color.fromRGBO(240, 134, 122, 1),
+                      ),
+                    ),
                     width: 40,
                     height: 52,
                     dayStructure: DayStructure.dayStrDayNum,
                     activeDayStyle: DayStyle(
-                        borderRadius: 25.0,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(15)),
-                          color: Color.fromRGBO(240, 134, 122, 1),
-                        )),
+                      borderRadius: 25.0,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(15)),
+                        color: Color.fromRGBO(240, 134, 122, 1),
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -149,8 +151,8 @@ class HomeScreen extends StatelessWidget {
                   ),
                   CupertinoButton(
                     onPressed: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => AllEvents()));
+                      Navigator.of(context).push(
+                          MaterialPageRoute(builder: (context) => AllEvents()));
                     },
                     padding: EdgeInsets.zero,
                     child: Row(

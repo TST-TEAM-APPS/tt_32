@@ -46,30 +46,32 @@ class _CalendarScreenState extends State<CalendarScreen> {
         actions: [
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: DropdownButton<String>(
-              dropdownColor: Colors.white,
-              icon: Icon(Icons.more_horiz, color: Colors.black),
-              value: selectedValue,
-              onChanged: (String? newValue) {
-                setState(() {
-                  selectedValue = newValue;
-                });
-                if (_dates.isNotEmpty) {
-                  if (selectedValue == 'All') {
-                    context.read<TrekerBloc>().add(FilledEvent(_dates.first!));
-                  } else {
-                    context.read<TrekerBloc>().add(
-                        FilledByDateAndTagEvent(selectedValue!, _dates.first!));
-                  }
-                }
-              },
-              items: options.map<DropdownMenuItem<String>>((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(
-                    value,
-                    style: Style.textStyle,
-                  ),
+            child: PullDownButton(
+              buttonBuilder: (context, showMenu) => CupertinoButton(
+                padding: EdgeInsets.zero,
+                minSize: 1,
+                child: Icon(Icons.more_horiz, color: Colors.black),
+                onPressed: showMenu,
+              ),
+              itemBuilder: (context) => options.map<PullDownMenuItem>((value) {
+                return PullDownMenuItem.selectable(
+                  onTap: () {
+                    setState(() {
+                      selectedValue = value;
+                    });
+                    if (_dates.isNotEmpty) {
+                      if (selectedValue == 'All') {
+                        context
+                            .read<TrekerBloc>()
+                            .add(FilledEvent(_dates.first!));
+                      } else {
+                        context.read<TrekerBloc>().add(FilledByDateAndTagEvent(
+                            selectedValue!, _dates.first!));
+                      }
+                    }
+                  },
+                  title: value,
+                  selected: selectedValue == value,
                 );
               }).toList(),
             ),

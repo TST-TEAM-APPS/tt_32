@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pp_731/UI/create_event.dart';
-import 'package:pp_731/UI/home_screen.dart';
-import 'package:pp_731/Widgets/bottom_navigation_bar.dart';
 import 'package:pp_731/style.dart';
 
 class OnboardingScreen extends StatefulWidget {
@@ -125,7 +123,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         ),
                         child: Center(
                           child: Text(
-                            "Create Task",
+                            "Contniue",
                             style: Style.textStyle.copyWith(
                               color: Colors.white,
                               fontSize: 18,
