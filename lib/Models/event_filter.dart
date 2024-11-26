@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pp_731/BLOC/Bloc_treker/bloc_treker.dart';
-import 'package:pp_731/BLOC/Bloc_treker/event_treker.dart';
-import 'package:pp_731/Repo/event_repo.dart';
+import 'package:party_planner/BLOC/Bloc_treker/bloc_treker.dart';
+import 'package:party_planner/BLOC/Bloc_treker/event_treker.dart';
+import 'package:party_planner/Repo/event_repo.dart';
 
 class FilterModel extends StatefulWidget {
   FilterModel({super.key});

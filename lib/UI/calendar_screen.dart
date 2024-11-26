@@ -2,9 +2,9 @@ import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pp_731/BLOC/Bloc_treker/bloc_treker.dart';
-import 'package:pp_731/BLOC/Bloc_treker/event_treker.dart';
-import 'package:pp_731/BLOC/Bloc_treker/state_treker.dart';
+import 'package:party_planner/BLOC/Bloc_treker/bloc_treker.dart';
+import 'package:party_planner/BLOC/Bloc_treker/event_treker.dart';
+import 'package:party_planner/BLOC/Bloc_treker/state_treker.dart';
 import 'package:pull_down_button/pull_down_button.dart';
 
 import '../Models/event_widget_model.dart';

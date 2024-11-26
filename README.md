@@ -1,4 +1,4 @@
-# pp_731
+# party_planner
 
 A new Flutter project.
 

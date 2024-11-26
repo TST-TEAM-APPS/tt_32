@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pp_731/BLOC/Bloc_treker/state_treker.dart';
-import 'package:pp_731/Models/event_model.dart';
+import 'package:party_planner/BLOC/Bloc_treker/state_treker.dart';
+import 'package:party_planner/Models/event_model.dart';
 
 import '../../Repo/event_repo.dart';
 import 'event_treker.dart';

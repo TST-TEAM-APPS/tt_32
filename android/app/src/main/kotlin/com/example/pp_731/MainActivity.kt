@@ -1,4 +1,4 @@
-package com.example.pp_731
+package com.example.party_planner
 
 import io.flutter.embedding.android.FlutterActivity
 

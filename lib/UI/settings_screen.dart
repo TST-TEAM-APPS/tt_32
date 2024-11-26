@@ -1,15 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_email_sender/flutter_email_sender.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:pp_731/style.dart';
+import 'package:in_app_review/in_app_review.dart';
+import 'package:party_planner/services/mixins/config_mixin.dart';
+import 'package:party_planner/style.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 class SettingsScreen extends StatefulWidget {
   @override
   State<SettingsScreen> createState() => _SettingsScreenState();
 }
 
-class _SettingsScreenState extends State<SettingsScreen> {
+class _SettingsScreenState extends State<SettingsScreen> with ConfigMixin {
   final List<String> titles = [
     'Privacy Policy',
     'Terms of Use',
@@ -171,342 +175,247 @@ If your website or app gives users a lot of control and freedom while using your
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                CupertinoButton(
-                  padding: EdgeInsets.zero,
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => TextScreen(
-                          title: titles[0],
-                          description: descriptions[0],
+                Expanded(
+                  child: CupertinoButton(
+                    padding: EdgeInsets.zero,
+                    onPressed: () => showCupertinoModalPopup(
+                      context: context,
+                      builder: (context) => CupertinoPopupSurface(
+                        child: Container(
+                          color: Colors.white,
+                          height: MediaQuery.of(context).size.height * 0.8,
+                          child: Column(
+                            children: [
+                              SizedBox(height: 10),
+                              Expanded(
+                                child: WebViewWidget(
+                                  controller: WebViewController()
+                                    ..loadRequest(
+                                      Uri.parse(privacyLink),
+                                    ),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                    );
-                  },
-                  child: Container(
-                    width: 166,
-                    height: 52,
-                    decoration: BoxDecoration(
-                      color: Style.bgColor,
-                      border: Border.all(
-                        width: 1,
-                        color: Color.fromRGBO(169, 169, 169, 1),
-                      ),
-                      borderRadius: BorderRadius.circular(25),
                     ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        SizedBox(
-                          width: 5,
+                    child: Container(
+                      width: double.infinity,
+                      height: 52,
+                      decoration: BoxDecoration(
+                        color: Style.bgColor,
+                        border: Border.all(
+                          width: 1,
+                          color: Color.fromRGBO(169, 169, 169, 1),
                         ),
-                        Container(
-                          padding: EdgeInsets.all(5),
-                          width: 32,
-                          height: 32,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(18),
-                            color: Colors.white,
+                        borderRadius: BorderRadius.circular(25),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            width: 5,
                           ),
-                          child: SvgPicture.asset(
-                              'Assets/Icons/material-symbols_privacy-tip-outline-rounded.svg'),
-                        ),
-                        SizedBox(
-                          width: 5,
-                        ),
-                        Text(
-                          'Privacy Policy',
-                          style: Style.textStyle.copyWith(
-                            color: Color.fromRGBO(52, 52, 52, 1),
+                          Container(
+                            padding: EdgeInsets.all(5),
+                            width: 32,
+                            height: 32,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(18),
+                              color: Colors.white,
+                            ),
+                            child: SvgPicture.asset(
+                                'Assets/Icons/material-symbols_privacy-tip-outline-rounded.svg'),
                           ),
-                        ),
-                      ],
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Text(
+                            'Privacy Policy',
+                            style: Style.textStyle.copyWith(
+                              color: Color.fromRGBO(52, 52, 52, 1),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
-                CupertinoButton(
-                  padding: EdgeInsets.zero,
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => TextScreen(
-                          title: titles[1],
-                          description: descriptions[1],
+                SizedBox(width: 10), 
+                Expanded(
+                  child: CupertinoButton(
+                    padding: EdgeInsets.zero,
+                    onPressed: () => showCupertinoModalPopup(
+                      context: context,
+                      builder: (context) => CupertinoPopupSurface(
+                        child: Container(
+                          color: Colors.white,
+                          height: MediaQuery.of(context).size.height * 0.8,
+                          child: Column(
+                            children: [
+                              SizedBox(height: 10),
+                              Expanded(
+                                child: WebViewWidget(
+                                  controller: WebViewController()
+                                    ..loadRequest(
+                                      Uri.parse(termsLink),
+                                    ),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                    );
-                  },
-                  child: Container(
-                    width: 166,
-                    height: 52,
-                    decoration: BoxDecoration(
-                      color: Style.bgColor,
-                      border: Border.all(
-                        width: 1,
-                        color: Color.fromRGBO(169, 169, 169, 1),
-                      ),
-                      borderRadius: BorderRadius.circular(25),
                     ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        SizedBox(
-                          width: 5,
+                    child: Container(
+                      width: double.infinity,
+                      height: 52,
+                      decoration: BoxDecoration(
+                        color: Style.bgColor,
+                        border: Border.all(
+                          width: 1,
+                          color: Color.fromRGBO(169, 169, 169, 1),
                         ),
-                        Container(
-                          padding: EdgeInsets.all(5),
-                          width: 32,
-                          height: 32,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(18),
-                            color: Colors.white,
+                        borderRadius: BorderRadius.circular(25),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            width: 5,
                           ),
-                          child: SvgPicture.asset(
-                              'Assets/Icons/jam_document-f.svg'),
-                        ),
-                        SizedBox(
-                          width: 5,
-                        ),
-                        Text(
-                          'Terms of Use',
-                          style: Style.textStyle.copyWith(
-                            color: Color.fromRGBO(52, 52, 52, 1),
+                          Container(
+                            padding: EdgeInsets.all(5),
+                            width: 32,
+                            height: 32,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(18),
+                              color: Colors.white,
+                            ),
+                            child: SvgPicture.asset(
+                                'Assets/Icons/jam_document-f.svg'),
                           ),
-                        ),
-                      ],
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Text(
+                            'Terms of Use',
+                            style: Style.textStyle.copyWith(
+                              color: Color.fromRGBO(52, 52, 52, 1),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
               ],
             ),
           ),
+          SizedBox(height: 10), 
           Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                CupertinoButton(
-                  padding: EdgeInsets.zero,
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => TextScreen(
-                          title: titles[0],
-                          description: descriptions[0],
-                        ),
-                      ),
-                    );
-                  },
-                  child: Container(
-                    width: 166,
-                    height: 52,
-                    decoration: BoxDecoration(
-                      color: Style.bgColor,
-                      border: Border.all(
-                        width: 1,
-                        color: Color.fromRGBO(169, 169, 169, 1),
-                      ),
-                      borderRadius: BorderRadius.circular(25),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        SizedBox(
-                          width: 5,
-                        ),
-                        Container(
-                          padding: EdgeInsets.all(5),
-                          width: 32,
-                          height: 32,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(18),
-                            color: Colors.white,
-                          ),
-                          child: SvgPicture.asset(
-                              'Assets/Icons/mingcute_version-line.svg'),
-                        ),
-                        SizedBox(
-                          width: 5,
-                        ),
-                        Text(
-                          'Version',
-                          style: Style.textStyle.copyWith(
-                            color: Color.fromRGBO(52, 52, 52, 1),
-                          ),
-                        ),
-                      ],
-                    ),
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: CupertinoButton(
+              padding: EdgeInsets.zero,
+              onPressed: () async => await FlutterEmailSender.send(
+                Email(
+                    recipients: ['GavrilIl99@icloud.com'],
+                    subject: 'Message to support',
+                    body: '....'),
+              ),
+              child: Container(
+                width: double.infinity,
+                height: 52,
+                decoration: BoxDecoration(
+                  color: Style.bgColor,
+                  border: Border.all(
+                    width: 1,
+                    color: Color.fromRGBO(169, 169, 169, 1),
                   ),
+                  borderRadius: BorderRadius.circular(25),
                 ),
-                CupertinoButton(
-                  padding: EdgeInsets.zero,
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => TextScreen(
-                          title: titles[1],
-                          description: descriptions[1],
-                        ),
-                      ),
-                    );
-                  },
-                  child: Container(
-                    width: 166,
-                    height: 52,
-                    decoration: BoxDecoration(
-                      color: Style.bgColor,
-                      border: Border.all(
-                        width: 1,
-                        color: Color.fromRGBO(169, 169, 169, 1),
-                      ),
-                      borderRadius: BorderRadius.circular(25),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      width: 5,
                     ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        SizedBox(
-                          width: 5,
-                        ),
-                        Container(
-                          padding: EdgeInsets.all(5),
-                          width: 32,
-                          height: 32,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(18),
-                            color: Colors.white,
-                          ),
-                          child: SvgPicture.asset('Assets/Icons/mdi_about.svg'),
-                        ),
-                        SizedBox(
-                          width: 5,
-                        ),
-                        Text(
-                          'About us',
-                          style: Style.textStyle.copyWith(
-                            color: Color.fromRGBO(52, 52, 52, 1),
-                          ),
-                        ),
-                      ],
+                    Container(
+                      padding: EdgeInsets.all(5),
+                      width: 32,
+                      height: 32,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(18),
+                        color: Colors.white,
+                      ),
+                      child: SvgPicture.asset('Assets/Icons/mdi_about.svg'),
                     ),
-                  ),
+                    SizedBox(
+                      width: 5,
+                    ),
+                    Text(
+                      'Contact us',
+                      style: Style.textStyle.copyWith(
+                        color: Color.fromRGBO(52, 52, 52, 1),
+                      ),
+                    ),
+                  ],
                 ),
-              ],
+              ),
             ),
           ),
+          SizedBox(height: 10), 
           Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                CupertinoButton(
-                  padding: EdgeInsets.zero,
-                  onPressed: () {
-                    // Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(
-                    //     builder: (context) => TextScreen(
-                    //       title: titles[0],
-                    //       description: descriptions[0],
-                    //     ),
-                    //   ),
-                    // );
-                  },
-                  child: Container(
-                    width: 166,
-                    height: 52,
-                    decoration: BoxDecoration(
-                      color: Style.bgColor,
-                      border: Border.all(
-                        width: 1,
-                        color: Color.fromRGBO(169, 169, 169, 1),
-                      ),
-                      borderRadius: BorderRadius.circular(25),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        SizedBox(
-                          width: 5,
-                        ),
-                        Container(
-                          padding: EdgeInsets.all(5),
-                          width: 32,
-                          height: 32,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(18),
-                            color: Colors.white,
-                          ),
-                          child: SvgPicture.asset(
-                              'Assets/Icons/majesticons_share-line.svg'),
-                        ),
-                        SizedBox(
-                          width: 5,
-                        ),
-                        Text(
-                          'Shape app',
-                          style: Style.textStyle.copyWith(
-                            color: Color.fromRGBO(52, 52, 52, 1),
-                          ),
-                        ),
-                      ],
-                    ),
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: CupertinoButton(
+              padding: EdgeInsets.zero,
+              onPressed: () async =>
+                  await InAppReview.instance.requestReview(),
+              child: Container(
+                width: double.infinity,
+                height: 52,
+                decoration: BoxDecoration(
+                  color: Style.bgColor,
+                  border: Border.all(
+                    width: 1,
+                    color: Color.fromRGBO(169, 169, 169, 1),
                   ),
+                  borderRadius: BorderRadius.circular(25),
                 ),
-                CupertinoButton(
-                  padding: EdgeInsets.zero,
-                  onPressed: () {
-                    _showRatingDialog(context);
-                  },
-                  child: Container(
-                    width: 166,
-                    height: 52,
-                    decoration: BoxDecoration(
-                      color: Style.bgColor,
-                      border: Border.all(
-                        width: 1,
-                        color: Color.fromRGBO(169, 169, 169, 1),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      width: 5,
+                    ),
+                    Container(
+                      padding: EdgeInsets.all(5),
+                      width: 32,
+                      height: 32,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(18),
+                        color: Colors.white,
                       ),
-                      borderRadius: BorderRadius.circular(25),
+                      child: SvgPicture.asset(
+                          'Assets/Icons/material-symbols_star-rate-outline-rounded.svg'),
                     ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        SizedBox(
-                          width: 5,
-                        ),
-                        Container(
-                          padding: EdgeInsets.all(5),
-                          width: 32,
-                          height: 32,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(18),
-                            color: Colors.white,
-                          ),
-                          child: SvgPicture.asset(
-                              'Assets/Icons/material-symbols_star-rate-outline-rounded.svg'),
-                        ),
-                        SizedBox(
-                          width: 5,
-                        ),
-                        Text(
-                          'Rate Us',
-                          style: Style.textStyle.copyWith(
-                            color: Color.fromRGBO(52, 52, 52, 1),
-                          ),
-                        ),
-                      ],
+                    SizedBox(
+                      width: 5,
                     ),
-                  ),
+                    Text(
+                      'Rate Us',
+                      style: Style.textStyle.copyWith(
+                        color: Color.fromRGBO(52, 52, 52, 1),
+                      ),
+                    ),
+                  ],
                 ),
-              ],
+              ),
             ),
           ),
         ],
@@ -528,9 +437,12 @@ If your website or app gives users a lot of control and freedom while using your
                   height: 16,
                 ),
                 Center(
-                  child: Text('Rate us', style: Style.textStyle.copyWith(
-                    fontSize: 18,
-                  ),),
+                  child: Text(
+                    'Rate us',
+                    style: Style.textStyle.copyWith(
+                      fontSize: 18,
+                    ),
+                  ),
                 ),
                 // SizedBox(height: 10),
                 Row(
@@ -539,7 +451,8 @@ If your website or app gives users a lot of control and freedom while using your
                     return IconButton(
                       icon: Icon(
                         index < _currentRating ? Icons.star : Icons.star_border,
-                        color: index < _currentRating ? Colors.amber : Colors.grey,
+                        color:
+                            index < _currentRating ? Colors.amber : Colors.grey,
                       ),
                       onPressed: () {
                         setState(() {
@@ -564,17 +477,23 @@ If your website or app gives users a lot of control and freedom while using your
                       onPressed: () {
                         Navigator.of(context).pop();
                       },
-                      child: Text('Cancel', style: Style.textStyle.copyWith(
-                        color: Color.fromRGBO(240, 76, 47, 1),
-                      ),),
+                      child: Text(
+                        'Cancel',
+                        style: Style.textStyle.copyWith(
+                          color: Color.fromRGBO(240, 76, 47, 1),
+                        ),
+                      ),
                     ),
                     CupertinoButton(
                       onPressed: () {
                         Navigator.of(context).pop();
                       },
-                      child: Text('Done', style: Style.textStyle.copyWith(
-                        color: Color.fromRGBO(106, 195, 38, 1),
-                      ),),
+                      child: Text(
+                        'Done',
+                        style: Style.textStyle.copyWith(
+                          color: Color.fromRGBO(106, 195, 38, 1),
+                        ),
+                      ),
                     ),
                   ],
                 ),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pp_731/Models/event_model.dart';
+import 'package:party_planner/Models/event_model.dart';
 import 'package:sqflite/sqflite.dart';
 import 'dart:async';
 import 'package:path/path.dart';

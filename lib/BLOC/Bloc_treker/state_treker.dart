@@ -1,4 +1,4 @@
-import 'package:pp_731/Models/event_model.dart';
+import 'package:party_planner/Models/event_model.dart';
 
 class TrekerState {
   final DateTime? currentDateTime;

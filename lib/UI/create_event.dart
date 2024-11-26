@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:pp_731/BLOC/Bloc_treker/bloc_treker.dart';
-import 'package:pp_731/BLOC/Bloc_treker/event_treker.dart';
-import 'package:pp_731/Models/event_model.dart';
-import 'package:pp_731/Widgets/bottom_navigation_bar.dart';
-import 'package:pp_731/style.dart';
+import 'package:party_planner/BLOC/Bloc_treker/bloc_treker.dart';
+import 'package:party_planner/BLOC/Bloc_treker/event_treker.dart';
+import 'package:party_planner/Models/event_model.dart';
+import 'package:party_planner/Widgets/bottom_navigation_bar.dart';
+import 'package:party_planner/style.dart';
 import 'package:pull_down_button/pull_down_button.dart';
 class CreateEvent extends StatefulWidget {
   const CreateEvent({super.key});

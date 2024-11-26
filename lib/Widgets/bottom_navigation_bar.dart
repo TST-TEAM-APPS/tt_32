@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:pp_731/UI/home_screen.dart';
+import 'package:party_planner/UI/home_screen.dart';
 
 import '../UI/calendar_screen.dart';
 import '../UI/create_event.dart';

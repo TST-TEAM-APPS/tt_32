@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'UI/all_eevents.dart';
-import 'UI/onboaring.dart';
-import 'Widgets/bottom_navigation_bar.dart';
-import 'Widgets/is_first.dart';
+import 'package:party_planner/UI/initial_screen.dart';
+
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -10,20 +8,9 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      title: 'PartyPlanner Pulse',
       debugShowCheckedModeBanner: false,
-      home: FutureBuilder<bool>(
-        future: IsFirstRun.isFirstRun(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
-          } else if (snapshot.hasData && snapshot.data == true) {
-            return OnboardingScreen();
-          } else {
-            return ChangeBodies();
-          }
-        },
-      ),
-      // home: AllEvents(),
+      home: const InitialScreen(), 
     );
   }
 }

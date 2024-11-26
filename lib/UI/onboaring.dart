@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:pp_731/UI/create_event.dart';
-import 'package:pp_731/style.dart';
+import 'package:party_planner/UI/create_event.dart';
+import 'package:party_planner/style.dart';
 
 class OnboardingScreen extends StatefulWidget {
   @override

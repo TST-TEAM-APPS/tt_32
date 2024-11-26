@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:pp_731/BLOC/Bloc_treker/state_treker.dart';
+import 'package:party_planner/BLOC/Bloc_treker/state_treker.dart';
 import 'package:pull_down_button/pull_down_button.dart';
 import 'package:intl/intl.dart';
 import '../BLOC/Bloc_treker/bloc_treker.dart';
