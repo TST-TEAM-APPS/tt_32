@@ -121,7 +121,7 @@ class _CreateEventState extends State<CreateEvent> {
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 10),
               child: Text(
-                'Title',
+                'Title (required)',
                 style: Style.textStyle.copyWith(
                   fontWeight: FontWeight.w400,
                   fontSize: 14,
@@ -177,7 +177,7 @@ class _CreateEventState extends State<CreateEvent> {
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 10),
               child: Text(
-                'Date',
+                'Date (required)',
                 style: Style.textStyle.copyWith(
                   fontWeight: FontWeight.w400,
                   fontSize: 14,
@@ -222,7 +222,7 @@ class _CreateEventState extends State<CreateEvent> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Start Time',
+                          'Start Time (required)',
                           style: Style.textStyle.copyWith(
                             fontWeight: FontWeight.w400,
                             fontSize: 14,
@@ -267,7 +267,7 @@ class _CreateEventState extends State<CreateEvent> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'End Time',
+                          'End Time (required)',
                           style: Style.textStyle.copyWith(
                             fontWeight: FontWeight.w400,
                             fontSize: 14,

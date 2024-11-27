@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:party_planner/UI/initial_screen.dart';
+import 'package:party_planner/UI/onboaring.dart';
 
 
 class App extends StatelessWidget {
@@ -10,7 +11,7 @@ class App extends StatelessWidget {
     return MaterialApp(
       title: 'PartyPlanner Pulse',
       debugShowCheckedModeBanner: false,
-      home: const InitialScreen(), 
+      home: const InitialScreen(),
     );
   }
 }

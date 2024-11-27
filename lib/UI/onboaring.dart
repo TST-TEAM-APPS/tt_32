@@ -21,11 +21,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     {
       "image": "Assets/Icons/onboarding2.png",
       "title": "Create event lists and\nkeep track details",
-      "description": "Make a schedule that is convenient\nfor you"
+      "description": "Make a schedule that is convenient for you"
     },
     {
       "image": "Assets/Icons/onboarding3.png",
-      "title": "Create your first\nevent",
+      "title": "Create your first event",
       "description": "Start your planning now"
     },
   ];
@@ -54,42 +54,48 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     children: [
                       Padding(
                         padding: const EdgeInsets.only(
-                          top: 100,
-                          bottom: 50,
+                          top: 35,
+                          bottom: 20,
                         ),
                         child: Image.asset(onboardingData[index]["image"]!),
                       ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Text(
-                                onboardingData[index]["title"]!,
-                                style: Style.textStyle.copyWith(
-                                  fontSize: 30,
-                                  fontWeight: FontWeight.bold,
+                      Expanded(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Text(
+                                  onboardingData[index]["title"]!,
+                                  style: Style.textStyle.copyWith(
+                                    fontSize: 25,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                  maxLines: null,
+                                  overflow: TextOverflow.visible,
                                 ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Text(
-                                onboardingData[index]["description"]!,
-                                style: Style.textStyle.copyWith(
-                                  fontSize: 16,
-                                  color: Color.fromRGBO(52, 52, 52, 1),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Text(
+                                  onboardingData[index]["description"]!,
+                                  style: Style.textStyle.copyWith(
+                                    fontSize: 14,
+                                    color: Color.fromRGBO(52, 52, 52, 1),
+                                  ),
+                                  maxLines: null,
+                                  overflow: TextOverflow.visible,
                                 ),
-                              ),
-                            ],
-                          ),
-                        ],
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   ),
@@ -102,9 +108,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                // Check if we are on the last page
                 if (_currentPage == onboardingData.length - 1) ...[
-                  // Render a single large button for the last page
                   Expanded(
                     child: CupertinoButton(
                       padding: EdgeInsets.all(30),
@@ -123,7 +127,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         ),
                         child: Center(
                           child: Text(
-                            "Contniue",
+                            "Continue",
                             style: Style.textStyle.copyWith(
                               color: Colors.white,
                               fontSize: 18,
