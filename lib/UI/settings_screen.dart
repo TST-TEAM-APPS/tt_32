@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app_info/flutter_app_info.dart';
 import 'package:flutter_email_sender/flutter_email_sender.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -174,6 +175,7 @@ If your website or app gives users a lot of control and freedom while using your
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
+          SizedBox(height: 20),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Row(
@@ -246,7 +248,7 @@ If your website or app gives users a lot of control and freedom while using your
                     ),
                   ),
                 ),
-                SizedBox(width: 10), 
+                SizedBox(width: 10),
                 Expanded(
                   child: CupertinoButton(
                     padding: EdgeInsets.zero,
@@ -317,7 +319,7 @@ If your website or app gives users a lot of control and freedom while using your
               ],
             ),
           ),
-          SizedBox(height: 10), 
+          SizedBox(height: 15),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: CupertinoButton(
@@ -326,7 +328,7 @@ If your website or app gives users a lot of control and freedom while using your
                 Email(
                     recipients: ['GavrilIl99@icloud.com'],
                     subject: 'Message to support',
-                    body: '....'),
+                    body: 'Put your message here...'),
               ),
               child: Container(
                 width: double.infinity,
@@ -359,7 +361,7 @@ If your website or app gives users a lot of control and freedom while using your
                       width: 5,
                     ),
                     Text(
-                      'Contact us',
+                      'Support',
                       style: Style.textStyle.copyWith(
                         color: Color.fromRGBO(52, 52, 52, 1),
                       ),
@@ -369,13 +371,12 @@ If your website or app gives users a lot of control and freedom while using your
               ),
             ),
           ),
-          SizedBox(height: 10), 
+          SizedBox(height: 15),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: CupertinoButton(
               padding: EdgeInsets.zero,
-              onPressed: () async =>
-                  await InAppReview.instance.requestReview(),
+              onPressed: () async => await InAppReview.instance.requestReview(),
               child: Container(
                 width: double.infinity,
                 height: 52,
@@ -418,6 +419,8 @@ If your website or app gives users a lot of control and freedom while using your
               ),
             ),
           ),
+          SizedBox(height: 15),
+          _AppInfo(),
         ],
       ),
     );
@@ -531,6 +534,61 @@ class TextScreen extends StatelessWidget {
             p: TextStyle(fontSize: 16),
           ),
         ),
+      ),
+    );
+  }
+}
+
+class _AppInfo extends StatelessWidget {
+  const _AppInfo();
+
+  @override
+  Widget build(BuildContext context) {
+    final info = AppInfo.of(context);
+    final version = info.package.version;
+    return Container(
+      width: double.infinity,
+      margin: EdgeInsets.symmetric(horizontal: 16),
+      padding: EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: CupertinoColors.white,
+        borderRadius: BorderRadius.circular(30),
+      ),
+      child: Column(
+        children: [
+          Row(
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(20),
+                child: Image.asset(
+                  'Assets/Icons/icon.png',
+                  width: 80,
+                  height: 80,
+                ),
+              ),
+              SizedBox(width: 20),
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Text(info.package.appName,
+                        style: Style.textStyle.copyWith(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w700,
+                        )),
+                    Text(
+                      '${version.major}.${version.minor}.${version.patch}',
+                      style: Style.textStyle.copyWith(
+                        fontSize: 15,
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ],
+          )
+        ],
       ),
     );
   }

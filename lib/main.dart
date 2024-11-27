@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_app_info/flutter_app_info.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get_it/get_it.dart';
@@ -15,7 +16,7 @@ void main() async {
   WidgetsBinding.instance.addObserver(
     AppLifecycleListener(onDetach: GetIt.instance<Flagsmith>().closeClient),
   );
-  final app = App();
+  final app = AppInfo(data: await AppInfoData.get(), child: App());
   final eventRepository = EventRepository();
   runApp(
     MultiBlocProvider(
