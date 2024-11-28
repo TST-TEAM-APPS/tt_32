@@ -10,6 +10,7 @@ import 'package:party_planner/Models/event_model.dart';
 import 'package:party_planner/Widgets/bottom_navigation_bar.dart';
 import 'package:party_planner/style.dart';
 import 'package:pull_down_button/pull_down_button.dart';
+
 class CreateEvent extends StatefulWidget {
   const CreateEvent({super.key});
 
@@ -37,15 +38,14 @@ class _CreateEventState extends State<CreateEvent> {
     _updateButtonState();
   }
 
-
-
   Future<void> _addTask(BuildContext context) async {
     final title = _titleController.text;
     final dueDate = DateTime.tryParse(_dateController.text);
     final description = _descriptionController.text;
     final startFormatTime = _startTimeController.text;
     final endFormatTime = _endTimeController.text;
-    final tag =_tagsController.text.isNotEmpty ? _tagsController.text : 'Birthdays';
+    final tag =
+        _tagsController.text.isNotEmpty ? _tagsController.text : 'Birthdays';
     final location = _locationController.text;
 
     if (_isButtonEnabled) {
@@ -64,7 +64,7 @@ class _CreateEventState extends State<CreateEvent> {
         MaterialPageRoute(
           builder: (context) => ChangeBodies(),
         ),
-            (Route<dynamic> route) => false,
+        (Route<dynamic> route) => false,
       );
       _titleController.clear();
       _descriptionController.clear();
@@ -114,9 +114,10 @@ class _CreateEventState extends State<CreateEvent> {
         ),
       ),
       backgroundColor: Style.bgColor,
-      body: Padding(
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(15.0),
-        child: ListView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 10),
@@ -128,50 +129,46 @@ class _CreateEventState extends State<CreateEvent> {
                 ),
               ),
             ),
-            Expanded(
-              child: TextField(
-                maxLines: null,
-                controller: _titleController,
-                onChanged: (value) => _updateButtonState(),
-                decoration: InputDecoration(
-                  fillColor: Color.fromRGBO(241, 242, 246, 1),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(15.0),
-                    borderSide: BorderSide(
-                      color: Colors.black,
-                      width: 2.0,
-                    ),
+            TextField(
+              maxLines: null,
+              controller: _titleController,
+              onChanged: (value) => _updateButtonState(),
+              decoration: InputDecoration(
+                fillColor: Color.fromRGBO(241, 242, 246, 1),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(15.0),
+                  borderSide: BorderSide(
+                    color: Colors.black,
+                    width: 2.0,
                   ),
-                  hintText: 'Title',
                 ),
+                hintText: 'Title',
               ),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 10),
               child: Text(
-                'Description',
+                'Description (optional)',
                 style: Style.textStyle.copyWith(
                   fontWeight: FontWeight.w400,
                   fontSize: 14,
                 ),
               ),
             ),
-            Expanded(
-              child: TextField(
-                maxLines: null,
-                controller: _descriptionController,
-                onChanged: (value) => _updateButtonState(),
-                decoration: InputDecoration(
-                  fillColor: Color.fromRGBO(241, 242, 246, 1),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(15.0),
-                    borderSide: BorderSide(
-                      color: Colors.black,
-                      width: 2.0,
-                    ),
+            TextField(
+              maxLines: null,
+              controller: _descriptionController,
+              onChanged: (value) => _updateButtonState(),
+              decoration: InputDecoration(
+                fillColor: Color.fromRGBO(241, 242, 246, 1),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(15.0),
+                  borderSide: BorderSide(
+                    color: Colors.black,
+                    width: 2.0,
                   ),
-                  hintText: 'Description',
                 ),
+                hintText: 'Description',
               ),
             ),
             Padding(
@@ -184,33 +181,31 @@ class _CreateEventState extends State<CreateEvent> {
                 ),
               ),
             ),
-            Expanded(
-              child: TextField(
-                controller: _dateController,
-                onChanged: (value) => _updateButtonState(),
-                readOnly: true,
-                onTap: () async {
-                  await _selectDate(context);
-                  _updateButtonState();
-                },
-                decoration: InputDecoration(
-                  fillColor: Color.fromRGBO(241, 242, 246, 1),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(15.0),
-                    // Округленные края
-                    borderSide: BorderSide(
-                      color: Colors.black, // Черная рамка
-                      width: 2.0, // Ширина рамки
-                    ),
+            TextField(
+              controller: _dateController,
+              onChanged: (value) => _updateButtonState(),
+              readOnly: true,
+              onTap: () async {
+                await _selectDate(context);
+                _updateButtonState();
+              },
+              decoration: InputDecoration(
+                fillColor: Color.fromRGBO(241, 242, 246, 1),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(15.0),
+                  // Округленные края
+                  borderSide: BorderSide(
+                    color: Colors.black, // Черная рамка
+                    width: 2.0, // Ширина рамки
                   ),
-                  suffixIcon: CupertinoButton(
-                    onPressed: () async {
-                      await _selectDate(context);
-                    },
-                    child: SvgPicture.asset('Assets/Icons/calendar.svg'),
-                  ),
-                  hintText: 'Date',
                 ),
+                suffixIcon: CupertinoButton(
+                  onPressed: () async {
+                    await _selectDate(context);
+                  },
+                  child: SvgPicture.asset('Assets/Icons/calendar.svg'),
+                ),
+                hintText: 'Date',
               ),
             ),
             Padding(
@@ -280,7 +275,7 @@ class _CreateEventState extends State<CreateEvent> {
                           onTap: () async {
                             await _selectEndTime(context);
                             _updateButtonState();
-                          } ,
+                          },
                           readOnly: true,
                           controller: _endTimeController,
                           onChanged: (value) => _updateButtonState(),
@@ -333,7 +328,7 @@ class _CreateEventState extends State<CreateEvent> {
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 10),
               child: Text(
-                'Tags',
+                'Tags (required)',
                 style: Style.textStyle.copyWith(
                   fontWeight: FontWeight.w400,
                   fontSize: 14,
@@ -424,43 +419,45 @@ class _CreateEventState extends State<CreateEvent> {
                 ),
               ),
             ),
-            Expanded(
-              child: TextField(
-                controller: _locationController,
-                decoration: InputDecoration(
-                  fillColor: Color.fromRGBO(241, 242, 246, 1),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(15.0),
-                    borderSide: BorderSide(
-                      color: Colors.black,
-                      width: 2.0,
-                    ),
+            TextField(
+              controller: _locationController,
+              decoration: InputDecoration(
+                fillColor: Color.fromRGBO(241, 242, 246, 1),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(15.0),
+                  borderSide: BorderSide(
+                    color: Colors.black,
+                    width: 2.0,
                   ),
-                  suffixIcon: CupertinoButton(
-                    onPressed: () {},
-                    child: SvgPicture.asset('Assets/Icons/search.svg'),
-                  ),
-                  hintText: 'location',
                 ),
+                suffixIcon: CupertinoButton(
+                  onPressed: () {},
+                  child: SvgPicture.asset('Assets/Icons/search.svg'),
+                ),
+                hintText: 'location',
               ),
             ),
-            CupertinoButton(
-              padding: EdgeInsets.symmetric(
-                vertical: 40,
-              ),
-              onPressed: _isButtonEnabled ? () => _addTask(context) : null,
-              child: Container(
-                width: 225,
-                height: 48,
-                decoration: BoxDecoration(
-                  color:_isButtonEnabled ? Style.textStyle.color : Color.fromRGBO(52, 52, 52, 0.5),
-                  borderRadius: BorderRadius.circular(40),
+            Center(
+              child: CupertinoButton(
+                padding: EdgeInsets.symmetric(
+                  vertical: 40,
                 ),
-                child: Center(
-                  child: Text(
-                    'Create',
-                    style: Style.textStyle.copyWith(
-                      color: Colors.white,
+                onPressed: _isButtonEnabled ? () => _addTask(context) : null,
+                child: Container(
+                  width: 225,
+                  height: 48,
+                  decoration: BoxDecoration(
+                    color: _isButtonEnabled
+                        ? Style.textStyle.color
+                        : Color.fromRGBO(52, 52, 52, 0.5),
+                    borderRadius: BorderRadius.circular(40),
+                  ),
+                  child: Center(
+                    child: Text(
+                      'Create',
+                      style: Style.textStyle.copyWith(
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                 ),
@@ -500,8 +497,6 @@ class _CreateEventState extends State<CreateEvent> {
     }
   }
 
-
-
   Future<void> _selectStartTime(BuildContext context) async {
     final TimeOfDay? picked = await showCupertinoModalPopup<TimeOfDay>(
       context: context,
@@ -538,13 +533,19 @@ class _CreateEventState extends State<CreateEvent> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       CupertinoButton(
-                        child: Text('Cancel',style: Style.textStyle.copyWith(color: Colors.red),),
+                        child: Text(
+                          'Cancel',
+                          style: Style.textStyle.copyWith(color: Colors.red),
+                        ),
                         onPressed: () {
                           Navigator.of(context).pop();
                         },
                       ),
                       CupertinoButton(
-                        child: Text('OK',style: Style.textStyle.copyWith(color: Colors.green),),
+                        child: Text(
+                          'OK',
+                          style: Style.textStyle.copyWith(color: Colors.green),
+                        ),
                         onPressed: () {
                           Navigator.of(context).pop(selectedTime);
                         },
@@ -563,17 +564,15 @@ class _CreateEventState extends State<CreateEvent> {
       setState(() {
         selectedStartTime = picked;
         _startTimeController.text =
-        '${picked.hour.toString().padLeft(2, '0')}:${picked.minute.toString().padLeft(2, '0')}';
+            '${picked.hour.toString().padLeft(2, '0')}:${picked.minute.toString().padLeft(2, '0')}';
       });
     } else {
       setState(() {
         _startTimeController.text =
-        '${selectedStartTime.hour.toString().padLeft(2, '0')}:${selectedStartTime.minute.toString().padLeft(2, '0')}';
+            '${selectedStartTime.hour.toString().padLeft(2, '0')}:${selectedStartTime.minute.toString().padLeft(2, '0')}';
       });
     }
   }
-
-
 
   Future<void> _selectEndTime(BuildContext context) async {
     final TimeOfDay? picked = await showCupertinoModalPopup<TimeOfDay>(
@@ -634,8 +633,10 @@ class _CreateEventState extends State<CreateEvent> {
     );
 
     if (picked != null) {
-      final DateTime selectedStartDateTime = DateTime(0, 1, 1, selectedStartTime.hour, selectedStartTime.minute);
-      final DateTime selectedEndDateTime = DateTime(0, 1, 1, picked.hour, picked.minute);
+      final DateTime selectedStartDateTime =
+          DateTime(0, 1, 1, selectedStartTime.hour, selectedStartTime.minute);
+      final DateTime selectedEndDateTime =
+          DateTime(0, 1, 1, picked.hour, picked.minute);
 
       if (selectedEndDateTime.isBefore(selectedStartDateTime)) {
         showDialog(
@@ -643,7 +644,8 @@ class _CreateEventState extends State<CreateEvent> {
           builder: (BuildContext context) {
             return AlertDialog(
               title: Text('Invalid Time'),
-              content: Text('End time cannot be earlier than or equal to start time.'),
+              content: Text(
+                  'End time cannot be earlier than or equal to start time.'),
               actions: <Widget>[
                 TextButton(
                   child: Text('OK'),
@@ -659,13 +661,13 @@ class _CreateEventState extends State<CreateEvent> {
         setState(() {
           selectedEndTime = picked;
           _endTimeController.text =
-          '${picked.hour.toString().padLeft(2, '0')}:${picked.minute.toString().padLeft(2, '0')}';
+              '${picked.hour.toString().padLeft(2, '0')}:${picked.minute.toString().padLeft(2, '0')}';
         });
       }
     } else {
       setState(() {
         _endTimeController.text =
-        '${selectedEndTime.hour.toString().padLeft(2, '0')}:${selectedEndTime.minute.toString().padLeft(2, '0')}';
+            '${selectedEndTime.hour.toString().padLeft(2, '0')}:${selectedEndTime.minute.toString().padLeft(2, '0')}';
       });
     }
   }
